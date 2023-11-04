@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agregar Imagenes</title>
+
+    
+    <style>
+        body {
+      font-family: sans-serif;
+      background-color: #ffffff;
+      margin: 200px;
+      padding: 100px;
+    }
+    
+    form {
+      width: 500px;
+      margin: 0 auto;
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 10px;
+    }
+    
+    label {
+      display: block;
+      margin-bottom: 10px;
+      font-size: 18px;
+      font-weight: 600;
+    }
+    
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      margin-bottom: 10px;
+    }
+    
+    button {
+      background-color: #181e1f;
+      color: #ffffff;
+      font-size: 18px;
+      padding: 10px;
+      border-radius: 5px;
+      
+    }
+    
+    button:hover {
+      background-color: rgb(42, 179, 221) 33;
+    }
+    </style>
+
+</head>
+<body>
+    <div>
+        <form action="/aggimg" method="post">
+            <input type="text" name="url" id="url" placeholder="Ingrese la url de la imagen" required maxlength="500" minlength="3">
+            <select name="destacado" id="destacado">
+                <option value="">--Seleccione--</option>
+                <option value="Si">Si</option>
+                <option value="No">NO</option>
+            </select>
+            <select name="producto" id="producto">
+                <option value="" >--Seleccione--</option>
+                <% if (productos) { %>
+                    <% for (let i = 0; i < productos.length; i++){  %>
+                        <% if (productos) { %>
+                            <option value="<%= productos[i].id %>" id="producto_id" name="producto_id"><%= productos[i].nombre %></option> 
+                        <% } %>
+                    <% } %>
+                <% } else { %>
+                            <option value="">No existen productos en el sistema</option>
+                    <% }   %>
+            </select>
+            <button type="submit" class="btn btn-primary">Subir Imagen</button>
+        </form>
+    </div>
+</body>
+</html>

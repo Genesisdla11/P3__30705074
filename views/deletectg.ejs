@@ -1,0 +1,51 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eliminar Categoria</title>
+
+    <style>
+    body {
+  font-family: sans-serif;
+  background-color: #ffffff;
+  margin: 300px 400px;
+  padding: 30px  30px;
+}
+
+form {
+  width: 500px;
+  margin: 0 auto;
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+
+button {
+  background-color: #181e1f;
+  color: #ffffff;
+  font-size: 18px;
+  padding: 10px;
+  border-radius: 5px;
+  
+}
+
+button:hover {
+  background-color: rgb(42, 179, 221) 33;
+}
+
+
+    </style>
+</head>
+<body>
+        <div>
+            <h3>¿Está seguro de eliminar esta categoria?</h3>
+            <form action="/deletectg/<%= categorias.id %>" method="get">
+                <h4><%= categorias.nombre %></h4>
+                <button type="submit" class="btn btn-primary">Eliminar Categoria</button>
+            </form>
+        </div>
+</body>
+</html>

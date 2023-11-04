@@ -1,0 +1,101 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Raleway:wght@100;300;500&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    font-family:'Open Sans';
+}
+
+header{
+    background-color: #f2f2f2;
+    text-align: center;
+    padding: 25px 0;
+}
+
+nav a{
+    display: inline-block;
+    text-decoration: none;
+    color: #696969;
+    margin: 0 40px;
+    padding: 5px 15px;
+    border-radius: 30px;
+}
+
+header nav a:hover{
+    background-color: black;
+    color: white;
+}
+
+.encabezado-img{
+    background-image: url(https://st3.idealista.com/news/archivos/styles/fullwidth_xl/public/2020-06/placas_solares_01_gtres.jpg?VersionId=FPLzy8xokkfP54ZGL_4JnlIK6Wtl3s8i&itok=AbFo49du);
+    height: 500px;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+.encabezado-img p{
+    font-size: 20px;
+    
+}
+.encabezado-img h1{
+    font-size: 60px;
+    padding: 10px 0;
+}
+
+article section{
+    text-align: left;
+}
+
+article section{
+    text-align: center;
+    font-family:'Open Sans';
+    color: black;
+    padding: 25px 30px;
+    background-color: #f2f2f2;
+    display: inline-block;
+} 
+
+
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  th, td {
+    border: 1px solid #ccc;
+    padding: 5px;
+  }
+
+  th {
+    background-color: #eee;
+  }
+
+  .botones {
+    text-align: center;
+  }
+
+  table {
+border-collapse: collapse;
+width: 100%;
+}
+
+th, td {
+border: 1px solid #ccc;
+padding: 5px;
+}
+
+th {
+background-color: #eee;
+}
+
+.botones {
+text-align: center;
+}

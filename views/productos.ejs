@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="/stylesheets/admin.css">
+  <title>Productos</title>
+  <style>
+
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    th, td {
+      border: 1px solid #ccc;
+      padding: 5px;
+    }
+
+    th {
+      background-color: #eee;
+    }
+
+    .botones {
+      text-align: center;
+    }
+
+
+  </style>
+   <header>
+    <nav>
+        <h1>Productos</h1><br> 
+        <a href="/home">Home</a>
+        <a href="/categorias">Categorias</a>
+        <a href="/productos">Productos</a>
+        <a href="/imagenes">Imagenes</a>
+    </nav>
+   </header>
+</head>
+</head>
+<body>
+  <table>
+    <thead>
+     
+    </thead>
+            <tr>
+                <th>N°</th>
+                <th>Codigo</th>
+                <th>Nombre</th>
+                <th>Precio</th>
+                <th>Marca</th>
+                <th>Material</th>
+                <th>Descripcion</th>
+                <td><a href="/prdagg">Agregar</a></td>
+            </tr>
+    <tbody>
+        <tr>
+            <% if (productos) { %>
+                <% for (let i = 0; i < productos.length; i++){  %>
+                    <% if (productos) { %>
+                        <tr>
+                            <td><%= (i + 1) %></td>
+                            <td><%= productos[i].codigo %></td>
+                            <td><%= productos[i].nombre %></td>
+                            <td><%= productos[i].precio %></td>
+                            <td><%= productos[i].marca %></td>
+                            <td><%= productos[i].material %></td>
+                            <td><%= productos[i].descripcion %></td>
+                            <td> 
+                                <div class="input-group">
+                                    <a href="/prddelete/<%= productos[i].id%>" class="btn btn-danger">Eliminar</a>
+                                    <a href="/prdedit/<%= productos[i].id%>" class="btn btn-info">Actualizar</a>
+                                </div>
+                            </td>
+                        </tr>    
+                    <% } %>
+                <% } %>
+            <% } else { %>
+                    <tr>
+                        <th>No hay productos en el sistema</th>
+                    </tr>
+                <% }   %>
+        </tr>
+    </tbody>
+  </table>
+</body>
+</html>

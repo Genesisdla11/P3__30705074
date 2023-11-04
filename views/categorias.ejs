@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/stylesheets/admin.css">
+  <title>Categoria</title>
+  <style>
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    th, td {
+      border: 1px solid #ccc;
+      padding: 5px;
+    }
+
+    th {
+      background-color: #eee;
+    }
+
+    .botones {
+      text-align: center;
+    }
+
+    table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th, td {
+  border: 1px solid #ccc;
+  padding: 5px;
+}
+
+th {
+  background-color: #eee;
+}
+
+.botones {
+  text-align: center;
+}
+
+  </style>
+<body>
+    <header>
+        <nav>
+            <h1>Categorias </h1><br> 
+            <a href="/home">Home</a>
+            <a href="/categorias">Categorias</a>
+            <a href="/productos">Productos</a>
+            <a href="/imagenes">Imagenes</a>
+        </nav>
+</head><br>
+
+<body>
+  <table>
+    <thead>
+      <tr>
+        <th>N.</th>
+        <th>Nombre</th>
+        <td><a href="/ctgagg">Agregar</a></td>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <% if (categorias) { %>
+                <% for (let i = 0; i < categorias.length; i++){  %>
+                    <% if (categorias) { %>
+                        <tr>
+                            <td><%= (i + 1) %></td>
+                            <td><%= categorias[i].nombre %></td>
+                            <td>
+                                <div class="input-group">
+                                    <a href="/ctgdelete/<%= categorias[i].id%>" class="btn btn-danger">Eliminar</a>
+                                    <a href="/ctgedit/<%= categorias[i].id%>" class="btn btn-info">Actualizar</a>
+
+                                </div>
+                            </td>
+                        </tr>    
+                    <% } %>
+                <% } %>
+            <% } else { %>
+                    <tr>
+                        <th>No hay categorias en el sistema</th>
+                    </tr>
+                <% }   %>
+        </tr>
+      </tr>
+    </tbody>
+  </table>
+</body>
+</html>

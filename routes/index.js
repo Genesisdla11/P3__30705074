@@ -5,9 +5,113 @@ var router = express.Router();
 const productosModel = require ('../models/admin')
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
+
+router.get('/admin', function(req, res, next) {
+  res.render('Catalogo', { title: 'Catalogo' });
+});
+
+router.get('/index', function(req, res, next) {
   res.render('index', { title: 'Login' });
 });
+
+
+router.get('/info', function(req, res, next) {
+  res.render('info', { title: 'informacion' });
+});
+
+
+
+//Pagina principal compras
+router.get('/', function(req, res, next){
+  productosModel
+    .obteneradmin()
+    .then(datos=>{
+      res.render('Catalogo', {datos: datos});
+    }) 
+    .catch(err=>{
+      console.error(err.message);
+      return res.status(500).send('Error cargando archivos')
+    })
+});
+
+//Busqueda nombre productos
+router.post('/search', function(req, res, next){
+  const {nombre} = req.body;
+  productosModel
+    .obtenerprdPorNombre(nombre)
+    .then(datos=>{
+      res.render('Catalogo', {datos: datos});
+    })
+    .catch(err=>{
+      console.error(err.message);
+      return res.status(500).send('Error buscando archivos')
+    })
+});
+
+//Busqueda descripcion productos
+router.post('/searchdescrp', function(req, res, next){
+  const {descripcion} = req.body;
+  productosModel
+    .obtenerprdPorDescripcion(descripcion)
+    .then(datos=>{
+      res.render('Catalogo', {datos: datos});
+    })
+    .catch(err=>{
+      console.error(err.message);
+      return res.status(500).send('Error buscando archivos')
+    })
+});
+
+//Filtrado de productos por categoria
+router.post('/filtroctg', function(req, res, next){
+  const {categoria} = req.body;  
+  console.log(req.body);
+  productosModel
+    .filtradoctg(categoria)
+    .then(datos=>{
+      res.render('Catalogo', {datos: datos});
+    })
+    .catch(err=>{
+      console.error(err.message);
+      return res.status(500).send('Error buscando archivos')
+    })
+});
+
+//Filtrado de productos por marcas
+router.post('/filtromarca', function(req, res, next){
+  const {marca} = req.body;
+  console.log(req.body); 
+  productosModel
+    .filtradomarca(marca)
+    .then(datos=>{
+      res.render('Catalogo', {datos: datos});
+    })
+    .catch(err=>{
+      console.error(err.message);
+      return res.status(500).send('Error buscando archivos')
+    })
+});
+
+//Filtrado de productos por Material
+router.post('/filtromtl', function(req, res, next){
+  const {material} = req.body;  
+  console.log(req.body);
+  productosModel
+    .filtradomtl(material)
+    .then(datos=>{
+      res.render('Catalogo', {datos: datos});
+    })
+    .catch(err=>{
+      console.error(err.message);
+      return res.status(500).send('Error buscando archivos')
+    })
+});
+
+
+
+
+
+
 
 //login a la pagina del administrador
 router.post('/login', function(req, res, next){

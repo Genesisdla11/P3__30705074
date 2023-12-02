@@ -5,22 +5,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agregar Producto</title>
 
+    <header>
+      <nav>
+        <h1>Agregar Producto</h1>
+          <a href="/home">Home</a>
+          <a href="/productos">Volver</a>
+      </nav>
+    </header>
+
     <style>
-        body {
+    body {
       font-family: sans-serif;
       background-color: #ffffff;
-      margin: 200px;
-      padding: 100px;
+      margin: 0;
+      padding: 0;
     }
     
     form {
-      width: 500px;
-      margin: 0 auto;
-      background-color: #ffffff;
+      width: 600px;
+      margin: 2.5em auto;
+      background-color:#f2f2f2;
       padding: 20px;
       border-radius: 10px;
+     
     }
-    
+
+    header nav a:hover{
+    background-color: black;
+    color: white;
+    }
+
     label {
       display: block;
       margin-bottom: 10px;
@@ -29,8 +43,8 @@
     }
     
     input, textarea {
-      width: 100%;
-      padding: 10px;
+      width: 94%;
+      padding: 15px;
       border: 1px solid #ccc;
       margin-bottom: 10px;
     }
@@ -39,27 +53,41 @@
       background-color: #181e1f;
       color: #ffffff;
       font-size: 18px;
-      padding: 10px;
       border-radius: 5px;
+      display: block;
+      padding: 0.5rem 1rem;
+      width: 200px;
+      margin: 0 auto;
       
     }
     
-    button:hover {
-      background-color: rgb(42, 179, 221) 33;
+    header{
+      background-color: #f2f2f2;
+      text-align: center;
+      padding: 25px 0;
+    }
+
+    nav a{
+      display: inline-block;
+      text-decoration: none;
+      color: #696969;
+      margin: 0 40px;
+      padding: 5px 15px;
+      border-radius: 30px;
     }
     
-    
-        </style>
+    </style>
 </head>
 <body>
     <div>
         <form action="/aggprd" method="post">
+          <h3>Ingrese un Nuevo Producto</h3>
             <input type="text" name="nombre" id="nombre" placeholder="Ingrese el nombre del producto" required maxlength="200" minlength="3">
             <input type="number" name="codigo" id="codigo" placeholder="Ingrese el codigo del producto" required>
             <input type="number" name="precio" id="precio" placeholder="Ingrese el precio del producto" required>
             <input type="text" name="marca" id="marca" placeholder="Ingrese la marca del producto" required maxlength="25" minlength="4">
-            <input type="text" name="material" id="material" placeholder="Ingrese el material del producto" required>
-            <select name="categoria" id="categoria">
+            <input type="text" name="material" id="material" placeholder="Ingrese el material del producto" required><br>
+            <select name="categoria_id" id="categoria_id">
                 <option value="" >--Seleccione--</option>
                 <% if (categorias) { %>
                     <% for (let i = 0; i < categorias.length; i++){  %>
@@ -71,9 +99,9 @@
                 <% } else { %>
                             <option value="">No existen categorias en el sistema</option>
                     <% }   %>
-            </select>
-            <input type="textarea" name="descripcion" id="descripcion" placeholder="Ingrese la descripcion del producto" maxlength="600" minlength="10">
-            <button type="submit" class="btn btn-primary">Agregar Producto</button>
+            </select><br>
+            <br><input type="textarea" name="descripcion" id="descripcion" placeholder="Ingrese la descripcion del producto" minlength="10">
+            <br><button type="submit" class="btn btn-primary">Agregar Producto</button>
         </form>
     </div>
 </body>

@@ -1,38 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eliminar Imagen</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Eliminar Imagen</title>
+
+  <header>
+    <nav>
+      <h1>Eliminar Imagen</h1>
+        <a href="/home">Home</a>
+        <a href="/imagenes">Volver</a>
+    </nav>
+  </header>
     <style>
+
     body {
-        font-family: sans-serif;
-        background-color: #ffffff;
-        margin: 300px 400px;
-        padding: 30px  30px;
-      }
+      font-family: sans-serif;
+      background-color: #ffffff;
+      margin: 0;
+      padding: 0;
+    }
       
-      form {
-        width: 500px;
-        margin: 0 auto;
-        background-color: #ffffff;
-        padding: 20px;
-        border-radius: 10px;
-      }
+    form {
+      width: 500px;
+      margin: 0 auto;
+      background-color:  #f2f2f2;
+      padding: 20px;
+      border-radius: 10px;
+    }
       
-      
-      button {
-        background-color: #181e1f;
-        color: #ffffff;
-        font-size: 18px;
-        padding: 10px;
-        border-radius: 5px;
+    h3{
+      margin: 45px;
+      text-align: center;
+    }
+
+    button {
+      background-color: #181e1f;
+      color: #ffffff;
+      font-size: 18px;
+      border-radius: 5px;
+      display: block;
+      padding: 0.5rem 1rem;
+      width: 200px;
+      margin: 0 auto;
         
-      }
-      
-      button:hover {
-        background-color: rgb(42, 179, 221) 33;
-      }
+    }
+    img{
+      margin: 0;
+      padding: 0.5rem 5rem;
+      width: 200px;
+      width: 300px;
+      height: 300px;
+    }
+    
+    header nav a:hover{
+      background-color: black;
+      color: white;
+    }
+     
+    header{
+      background-color: #f2f2f2;
+      text-align: center;
+      padding: 25px 0;
+    }
+
+    nav a{
+      display: inline-block;
+      text-decoration: none;
+      color: #696969;
+      margin: 0 40px;
+      padding: 5px 15px;
+      border-radius: 30px;
+    }
     </style>      
 </head>
 <body>
@@ -40,6 +79,7 @@
         <h3>¿Está seguro de eliminar esta Imagen?</h3>
         <form action="/deleteimg/<%= imagenes.id %>" method="get">
             <img src="<%= imagenes.url %>">
+            <p>Destacado</p>
             <h4><%= imagenes.destacado %></h4>
             <button type="submit" class="btn btn-primary">Eliminar Imagen</button>
         </form>

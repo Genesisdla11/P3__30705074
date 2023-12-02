@@ -1,0 +1,267 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <title>Catalogo</title>
+
+    <style>
+        .contened{
+            display: flex;
+        }
+        .button{
+            display: flex;
+            justify-content: center;
+        }
+
+        .btn-outline-primary{
+            width:90%; 
+            text-align: center;
+            margin:20px;
+            padding: 10px;
+        }
+
+    </style>
+
+</head>
+<body>
+      
+<header data-bs-theme="dark">
+    <div class="collapse text-bg-dark" id="navbarHeader">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-8 col-md-7 py-4">
+            <h4>Mas sobre nosotros</h4>
+            <p class="text-body-secondary">
+                Somos importadores directos de cada una de las marcas presentadas es nuestro catalogo, algunos de nuestros productos, por ejemplo los paneles solares monocristalinos (fotovoltaicos) están hechos de un solo cristal de silicio. Son los paneles solares más eficientes y de mayor calidad. Para mas informacion, llamar al 04241342345</p>
+          </div>
+          <div class="col-sm-4 offset-md-1 py-4">
+            <h4>Inicio de Sesion</h4>
+            <ul class="list-unstyled">
+              <li><a href="/index" class="text-white">Como Administrador</a></li>
+              <li><a href="#" class="text-white">Como Usuario</a></li>
+              <li><a href="#" class="text-white">Ver mas...</a></li>
+            </ul>
+          </div>
+
+    
+
+<div class="contened">
+  <div>
+      <form action="/search" method="post">
+          <input type="text" name="nombre" id="nombre" placeholder="Ingrese el nombre del juego" >
+          <button type="submit" class="btn btn-primary">Buscar</button>
+      </form>
+  </div>
+
+  <div>
+  
+      <form action="/searchdescrp" method="post">
+          <input type="text" name="descripcion" id="descripcion" placeholder="Ingrese una descripcion del juego" >
+          <button type="submit" class="btn btn-primary">Buscar</button>
+      </form>
+  </div>
+  
+  <div>
+      <form action="/filtroctg" method="post">
+          <select name="categoria" id="categoria">
+              <option value="" >--Categorias--</option>
+              <% if (datos) { %>
+                  <% for (let i = 0; i < datos.length; i++){  %>
+                      <% if (datos) { %>
+                          <option value="<%= datos[i].categoriaNombre %>" name="categoria" id="categoria"><%= datos[i].categoriaNombre %></option>
+                      <% } %>
+                  <% } %>
+              <% } else { %>
+                  <option value="">No existen juegos en el sistema</option>
+              <% }   %>
+          </select>
+          <button type="submit" class="btn btn-primary">Filtrar productos</button>
+      </form>
+  </div>
+
+  <div>
+      <form action="/filtromarca" method="post">
+          <select name="marca" id="marca">
+              <option value="" >--Marcas--</option>
+              <% if (datos) { %>
+                  <% for (let i = 0; i < datos.length; i++){  %>
+                      <% if (datos) { %>
+                          <option value="<%= datos[i].marca %>"><%= datos[i].marca %></option>
+                      <% } %>
+                  <% } %>
+              <% } else { %>
+                  <option value="">No existen juegos en el sistema</option>
+              <% }   %>
+          </select>
+          <button type="submit" class="btn btn-primary">Filtrar productos</button>
+      </form>
+  </div>
+
+  <div>
+      <form action="/filtromtl" method="post">
+          <select name="material" id="material">
+              <option value="" >--Material--</option>
+              <% if (datos) { %>
+                  <% for (let i = 0; i < datos.length; i++){  %>
+                      <% if (datos) { %>
+                          <option value="<%= datos[i].material %>"><%= datos[i].material %></option>
+                      <% } %>
+                  <% } %>
+              <% } else { %>
+                  <option value="0">No existen juegos en el sistema</option>
+              <% }   %>
+          </select>
+          <button type="submit" class="btn btn-primary">Filtrar productos</button>
+      </form>
+  </div>
+</div>
+
+
+    </div>   
+        </div>
+      </div>
+    </div>
+    <div class="navbar navbar-dark bg-dark shadow-sm">
+      <div class="container">
+        <a href="#" class="navbar-brand d-flex align-items-center">
+          <strong>Catalogo Online</strong>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+
+  <section class="py-5 text-center container" style="background-image: url(https://i.blogs.es/e4a3ea/mariana-proenca-_h0xg4s6nfg-unsplash/1366_2000.jpg);" >
+    <div class="row py-lg-5">
+      <div class="col-lg-6 col-md-8 mx-auto">
+        <h1 class="fw-light">Bienvenido al Catalogo Virtual</h1>
+        <p class="lead text-body-secondary">Podras encontrar una gran variedad de paneles solares, todos al alcance de un click, pasea por nuestro catalogo digital. Sabemos que el buen manejo y la distribución de productos de calidad en paneles solares es fundamental para garantizar que nuestros clientes reciban un producto que cumpla con sus expectativas y que sea duradero. Esto es especialmente importante en el caso de los paneles solares, que son una inversión importante para los hogares y las empresas.</p>
+      </div>
+    </div>
+  </section><br>
+
+    <br><div class="btn-group" role="group" aria-label="Vista de productos">
+    <input type="radio" class="btn-check" name="vistaProductos" id="btnCuadricula" autocomplete="off" checked>
+    <label class="btn btn-outline-primary" for="btnCuadricula">Cuadrícula</label>
+    <input type="radio" class="btn-check" name="vistaProductos" id="btnLista" autocomplete="off">
+    <label class="btn btn-outline-primary" for="btnLista">Lista</label>
+  </div>
+
+    <div class="card-body  justify-content-center">
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        <table border="2">
+          
+            <tr class="col custom-col">
+               <% if (datos) { %>
+                    <% for (let i = 0; i < datos.length; i++){  %>
+                            <tr class="col custom-col">
+                                <div class="card bg-light mb-3 text-center h-100 shadow-border">
+                                    <div class="col custom-col">
+                                      <div class="card-header">
+                                        <img src="<%= datos[i].url %>" width="400px" height="250px">
+                                        <div class="card-body">
+                                            <h4 class="card-title"><%= datos[i].productoNombre %></h4>
+                                            <p class="card-text"><%= datos[i].descripcion %></p>
+                                            <p class="card-text"><%= datos[i].material %></p>
+                                            <br><h5>Categoria</h5>
+                                            <p class="card-text"><%= datos[i].categoriaNombre %></p>
+                                            <br><h5>Marca</h5>
+                                            <p class="card-text"><%= datos[i].marca %></p>
+
+                                          <P class="card-body"><%= datos[i].precio %>$</P>
+                                          <div class="d-flex justify-content-between align-items-center">
+                                            <div class="btn-group">
+                                              <a href="" class="btn btn-primary">Detalles</a>
+                                            </div>
+                                              <a href="" class="btn btn-success">Añadir</a>
+                                            </div>
+                                            <a href="" class="btn btn-warning">Comprar</a>
+                                        </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                            </tr>    
+                    <% } %>
+                <% } else { %>
+                        <tr>
+                            <th><p>No hay productos en el sistema</p></th>
+                        </tr>
+                    <% }   %>
+            </tr>
+            <tr>
+                
+            </tr>
+        </table>
+    </div>
+
+<footer class="text-body-secondary py-5">
+  <div class="container">
+    <p class="float-end mb-1">
+      <a href="#" class="btn">Back to top</a>
+  </div>
+
+  <div class="container">
+    <p class="float-end mb-1">
+      <a href="/" class="btn">Restablecer</a>
+  </div>
+
+</footer>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const btnCuadricula = document.getElementById("btnCuadricula");
+      const btnLista = document.getElementById("btnLista");
+      const productosContainer = document.querySelector(".row.row-cols-1.row-cols-md-3.g-4");
+  
+      // Verificar si hay un estado guardado en el almacenamiento local
+      const estadoGuardado = localStorage.getItem("estadoVista");
+      if (estadoGuardado === "cuadricula") {
+        productosContainer.classList.remove("row-cols-md-1");
+        productosContainer.classList.add("row-cols-md-3");
+      } else if (estadoGuardado === "lista") {
+        productosContainer.classList.remove("row-cols-md-3");
+        productosContainer.classList.add("row-cols-md-1");
+      }
+  
+      btnCuadricula.addEventListener("click", function() {
+        productosContainer.classList.remove("row-cols-md-1");
+        productosContainer.classList.add("row-cols-md-3");
+  
+        // Guardar el estado seleccionado en el almacenamiento local
+        localStorage.setItem("estadoVista", "cuadricula");
+      });
+  
+      btnLista.addEventListener("click", function() {
+        productosContainer.classList.remove("row-cols-md-3");
+        productosContainer.classList.add("row-cols-md-1");
+  
+        // Guardar el estado seleccionado en el almacenamiento local
+        localStorage.setItem("estadoVista", "lista");
+      });
+    });
+  </script>
+
+
+    
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recuperar Contraseña</title>
+    <Style>
+            @import url('https://fonts.googleapis.com/css?family=Muli&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,500&display=swap');
+
+* {
+	box-sizing: border-box;
+}
+
+body {
+	background-color: #d5dbe7;
+	font-family: 'Open Sans', sans-serif;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 100vh;
+	margin: 0;
+}
+
+.container {
+	background-color: #fff;
+	border-radius: 5px;
+	box-shadow: 0 2px 20px 0px #03153b2e;
+	overflow: hidden;
+	width: 400px;
+	max-width: 100%;
+}
+
+.header {
+	border-bottom: 1px solid #f0f0f0;
+	background-color: #ccd8ef;
+	padding: 20px 40px;
+}
+
+.header h2 {
+	margin: 0;
+	color: #212C42;
+	text-align: center;
+}
+
+.form {
+	padding: 30px 40px;	
+	font-weight: 500;
+	color: #03153b;
+}
+
+.form button {
+	background-color: #6781F7;
+	border: 2px solid #6781F7;
+	border-radius: 4px;
+	color: #fff;
+	display: block;
+	font-family: inherit;
+	font-size: 16px;
+	padding: 10px;
+	margin-top: 20px;
+	width: 100%;
+	cursor: pointer;
+	transition: 0.6s;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  color: rgb(0, 217, 255);
+  border: 1px solid rgb(0, 183, 255);
+  outline: none;
+}
+
+button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  color: white;
+  background-color: rgb(165, 185, 209);
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: rgb(0, 111, 139);
+}
+
+    </Style>
+
+
+</head>
+<body>
+
+    <div class="container">
+
+		<div class="header">
+			<h2>Recuperar Clave</h2>
+		</div>
+
+
+	<form  action="/resclave" method="post" class="form">
+    <input type="text" name="pregunta" id="pregunta" placeholder="Ingrese su pregunta de seguridad" required maxlength="16" minlength="4" >
+	<input type="text" name="respuesta" id="respuesta" placeholder="Ingrese su respuesta de seguridad" required maxlength="8" minlength="4">
+		<button type="submit" class="btn btn-primary">Buscar Correo</button>
+	</form>
+</div>
+
+</body>
+</html>

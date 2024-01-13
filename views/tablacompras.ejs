@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facturas</title>
+
+    <link rel="stylesheet" href="/stylesheets/admin.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="/stylesheets/hf.css">
+
+   
+</head>
+
+<body>
+    <header>
+        <div class="color">
+            <header>
+                <header>
+                    <nav>
+                        <h3>Pagina Facturas</h3><br> 
+                        <a href="/home">Home</a>
+                    </nav>
+
+        <main class="separe">
+            <article class="container1">
+                <div class="container"><br>
+                    <div class="table-responsive"><br>
+                      
+                        <table border="2px" class="table table-striped">
+                     
+                            <tr>
+                                <th>
+                                    <p>N°</p>
+                                </th>
+                                <th>
+                                    <p>Producto</p>
+                                </th>
+                                <th>
+                                    <p>Referencia</p>
+                                </th>
+                                <th>
+                                    <p>Cantidad</p>
+                                </th>
+                                <th>
+                                    <p>Total Pagado</p>
+                                </th>
+                                <th>
+                                    <p>Moneda</p>
+                                </th>
+                                <th>
+                                    <p>N° de Transacción</p>
+                                </th>
+                                <th>
+                                    <p>Fecha</p>
+                                </th>
+                                <th>
+                                    <p>Cliente</p>
+                                </th>
+                                <th>
+                                    <p>Direccion IP</p>
+                                </th>
+                            </tr>
+                            <tr>
+                                <% if (facturas) { %>
+                                    <% for (let i=0; i < facturas.length; i++){ %>
+                                        <% if (facturas) { %>
+                            <tr>
+                                <td>
+                                    <%= (i + 1) %>
+                                </td>
+                                <td>
+                                    <%= facturas[i].nombre %>
+                                </td>
+                                <td>
+                                    <%= facturas[i].referencia %>
+                                </td>
+                                <td>
+                                    <%= facturas[i].cantidad %>
+                                </td>
+                                <td>
+                                    <%= facturas[i].total_pagado %>
+                                </td>
+                                <td>
+                                    <%= facturas[i].nomenclatura %>
+                                </td>
+                                <td>
+                                    <%= facturas[i].transaccion_id %>
+                                </td>
+                                <td>
+                                    <%= facturas[i].fecha %>
+                                </td>
+                                <td>
+                                    <%= facturas[i].email %>
+                                </td>
+                                <td>
+                                    <%= facturas[i].ip_cliente %>
+                                </td>
+                            </tr>
+                            <% } %>
+                                <% } %>
+                                    <% } else { %>
+                                        <tr>
+                                            <th>No hay compras en el sistema</th>
+                                        </tr>
+                                        <% } %>
+                                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </article>
+        </main>
+
+        <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+        <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+
+
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+            integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+            crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+            integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+            crossorigin="anonymous"></script>
+</body>
+
+</html>

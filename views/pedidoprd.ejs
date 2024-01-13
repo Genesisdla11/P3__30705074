@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pedido Producto</title>
+    <style>
+
+    body {
+      font-family: sans-serif;
+      background-color: #ffffff;
+      margin: 0;
+      padding: 0;
+    }
+    
+    form {
+      width: 600px;
+      margin: 2.5em auto;
+      background-color:#f2f2f2;
+      padding: 20px;
+      border-radius: 10px;
+     
+    }
+
+    header nav a:hover{
+    background-color: black;
+    color: white;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+      font-size: 18px;
+      font-weight: 600;
+    }
+    
+    input, textarea {
+      width: 94%;
+      padding: 15px;
+      border: 1px solid #ccc;
+      margin-bottom: 10px;
+    }
+    
+    button {
+      background-color: #181e1f;
+      color: #ffffff;
+      font-size: 18px;
+      border-radius: 5px;
+      display: block;
+      padding: 0.5rem 1rem;
+      width: 200px;
+      margin: 0 auto;
+      
+    }
+    
+    header{
+      background-color: #f2f2f2;
+      text-align: center;
+      padding: 25px 0;
+    }
+
+    nav a{
+      display: inline-block;
+      text-decoration: none;
+      color: #696969;
+      margin: 0 40px;
+      padding: 5px 15px;
+      border-radius: 30px;
+    }
+
+    .imagen-poducto{
+        text-align: center;
+
+    }
+
+    </style>
+
+</head>
+<body>
+    <div class="container" >
+        
+        <form action="/payments" method="post">
+            <label for="descripcion">Tipo de transacción</label>
+            <input type="text" name="descripcion" id="descripcion" value="Compra de: <%= datos.productoNombre %>" readonly>
+            <input type="text" name="producto_id" id="producto_id" value="<%= datos.id %>" readonly>
+            <label for="nombre">Nombre del comprador</label>
+            <input type="text" name="nombre" id="nombre" placeholder="Ingrese su nombre completo" required>
+            <label for="numero_tarjeta">Número de Tarjeta de Credito</label>
+            <input type="password" name="numero_tarjeta" id="numero_tarjeta" placeholder="Ingrese su numeor de tarjeta de credito" maxlength="16" minlength="14" required>
+            <label for="cvv">Código de Seguridad</label>
+            <input type="password" name="cvv" id="cvv" placeholder="Ingrese el codigo de seguridad de la tarjeta de credito" maxlength="3" required><br>
+            <label for="referencia">Haga una referencia</label>
+            <input type="text" name="referencia" id="referencia" value="Marca: <%= datos.marca %>" readonly>
+            <label for="mes_ven">Mes de Vencimiento de la tarjeta</label>
+            <select name="mes_ven" id="mes_ven">
+                <option value="1">Enero</option>
+                <option value="2">Febrero</option>
+                <option value="3">Marzo</option>
+                <option value="4">Abril</option>
+                <option value="5">Mayo</option>
+                <option value="6">Junio</option>
+                <option value="7">Julio</option>
+                <option value="8">Agosto</option>
+                <option value="9">Septiembre</option>
+                <option value="10">Octubre</option>
+                <option value="11">Noviembre</option>
+                <option value="12">Diciembre</option>
+            </select><br>
+            <label for="year_ven">Año de Vencimiento de la tarjeta</label>
+            <select name="year_ven" id="year_ven">
+                <% for (let i = 2024; i < 2028; i++){ %>
+                    <option value="<%= i %>"><%= i %></option>
+               <% } %>
+            </select><br>
+            <label for="moneda_id">Moneda de pago</label>
+            <select name="moneda_id" id="moneda_id">
+                <option value="1">USD (Dólar Americano)</option>
+                <option value="2">EUR (Euro)</option>
+                <option value="3">VES (Bolívares)</option>
+            </select><br>
+
+            
+            <p>Imagen referencial</p>
+            <img src="<%= datos.url %>" class="imagen-producto" width="100px" height="150px">
+            
+
+            <label for="cantidad">Cantidad</label>
+            <select name="cantidad" id="cantidad">
+                <% for (let i = 1; i < 21; i++){ %>
+                    <option value="<%= i %>"><%= i %></option>
+               <% } %>
+            </select><br>
+            <label for="precio">Precio del producto</label>
+            <input type="number" name="precio" id="precio" value="<%= datos.precio %>" readonly>
+            <button type="submit" class="btn btn-primary">Comprar</button>
+        </form>
+    </div>
+</body>
+</html>

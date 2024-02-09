@@ -67,6 +67,31 @@ db.run(sql_create6, err =>{
   }
 });
 
+const sql_create7="CREATE TABLE IF NOT EXISTS calificaciones (id INTEGER PRIMARY KEY AUTOINCREMENT, puntos INTEGER NOT NULL, cliente_id INTEGER, producto_id INTEGER, FOREIGN KEY (cliente_id) REFERENCES clientes (id), FOREIGN KEY (producto_id) REFERENCES productos (id))";
+db.run(sql_create7, err =>{
+  if (err){
+    console.error(err.message);
+  }else{
+    console.log("Anexada de la tabla calificaciones exitosa!!!");
+  }
+});
+const sql_create8="ALTER TABLE productos ADD promedio DOUBLE NULL DEFAULT 0";
+db.run(sql_create8, err =>{
+  if (err) {
+    console.error(err.message);
+  } else{
+    console.log("Edicion de la tabla productos EXITOSA!!! ");
+  }
+});
+
+
+
+
+
+
+
+
+
 })
 
 module.exports = db;

@@ -1,12 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" prefix="og: https://ogp.me/ns#">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/stylesheets/admin.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    
+    <meta property="og:title" content="<%= datos.productoNombre %>">
+    <meta property="og:description" content="<%= datos.descripcion %>">
+    <meta property="og:image" content="<%= datos.url %>">
+    <meta property="og:type" content="website">
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SLRVDZJP6F"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-SLRVDZJP6F');
+</script>
 </head>
 <header>
     <style>
@@ -64,17 +76,28 @@
 </header>
 <form>
     <div >
-        <div class="producto lista">
-                <p><img src="<%= datos.url %>"></p>
-                <p class="texto" style="font-weight: bolder;"><%= datos.productoNombre %></p>
-                <p class="texto"><%= datos.descripcion %></p>
-                <p class="texto">Categoria: <%= datos.categoriaNombre %></p>
-                <p class="texto">Marca: <%= datos.marca %></p>
-                <p class="texto">Material: <%= datos.material %></p>
-                <p class="texto">Precio: <%= datos.precio %>$</p>
-                <p class="button"><a href="/pedidoprd/<%= datos.id%>" class="btn btn-success">Comprar</a></p>
+      <div class="producto lista" itemscope itemtype="http://schema.org/Product">
+        <meta itemprop="sku" content="<%= datos.id %>">
+        <img src="<%= datos.url %>" itemprop="image">
+      
+        <h2 class="texto" itemprop="name" style="font-weight: bolder;"><%= datos.productoNombre %></h2>
+      
+        <p class="texto" itemprop="description"><%= datos.descripcion %></p>
+      
+        <ul class="lista-atributos">
+          <li class="texto">Categoria: <span itemprop="category"><%= datos.categoriaNombre %></span></li>
+          <li class="texto">Marca: <span itemprop="brand"><%= datos.marca %></span></li>
+          <li class="texto">Material: <span itemprop="material"><%= datos.material %></span></li>
+        </ul>
+      
+        <div class="precio-compra">
+          <p class="texto precio" itemprop="price"><%= datos.precio %>$</p>
+          <a href="/pedidoprd/<%= datos.id%>" class="btn btn-success" itemprop="url">Comprar</a>
         </div>
+      </div>
+      
     </div>
 </form>
 </body>
 </html>
+

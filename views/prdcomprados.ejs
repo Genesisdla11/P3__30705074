@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productos Comprados</title>
+
+    <link rel="stylesheet" href="/stylesheets/admin.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+
+</head>
+
+<body>
+    <div class="color">
+        <header>
+            <div class="container1">
+
+                    <nav>
+                            
+                            
+                        
+                                    <a href="/">Volver</a>
+                               
+                            
+
+                            </ul>
+                        </div>
+                
+                </nav>
+            </div>
+        </header>
+    </div>
+
+    <main class="separe">
+        <article class="container1">
+            <div class="container">
+                <div class="table-responsive">
+                    <div class="titulo">
+                        <h1>Productos Comprados</h1>
+                    </div> 
+                    <table border="2" class="table table-hover table-striped">
+                       
+                        <tr>
+                            <th>
+                                <p>N°</p>
+                            </th>
+                            <th>
+                                <p>Imagen</p>
+                            </th>
+                            <th>
+                                <p>Producto</p>
+                            </th>
+                            <th>
+                                <p>Cantidad</p>
+                            </th>
+                            <th>
+                                <p>Total Pagado</p>
+                            </th>
+                            <th>
+                                <p>Moneda</p>
+                            </th>
+                            <th>
+                                <p>Fecha</p>
+                            </th>
+                            <th>
+                                <p>Accion</p>
+                            </th>
+                        </tr>
+                        <tr>
+                            <% if (datos) { %>
+                                <% for (let i=0; i < datos.length; i++){ %>
+                        <tr>
+                            <td>
+                                <%= (i + 1) %>
+                            </td>
+                            <td>
+                                <img class="imagen-producto" src="<%= datos[i].url %>">
+                            </td>
+                            <td>
+                                <%= datos[i].nombre %>
+                            </td>
+                            <td>
+                                <%= datos[i].cantidad %>
+                            </td>
+                            <td>
+                                <%= datos[i].total_pagado %>
+                            </td>
+                            <td>
+                                <%= datos[i].nomenclatura %>
+                            </td>
+                            <td>
+                                <%= datos[i].fecha %>
+                            </td>
+                            <td>
+                                <div class="input-group">
+                                    <a href="/calificar/<%= datos[i].id %>" type="button"
+                                        class="btn btn-dark">Calificar</a>
+                                </div>
+                            </td>
+                        </tr>
+                        <% } %>
+                            <% } else { %>
+                                <tr>
+                                    <th>
+                                        <p>Usted no ha comprado productos</p>
+                                    </th>
+                                </tr>
+                                <% } %>
+                                    </tr>
+                    </table>
+                </div>
+            </div>
+        </article>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+        integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

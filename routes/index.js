@@ -2,6 +2,8 @@ require ('dotenv').config();
 var express = require('express');
 var router = express.Router();
 var axios = require ('axios');
+var nodemailer = require ('nodemailer');
+
 
 const productosModel = require ('../models/admin');
 const { Axios } = require('axios');
@@ -17,6 +19,21 @@ router.get('/login', function(req, res, next) {
   }
 });
 
+//Funcion Correo
+const transporter = nodemailer.createTransport({ 
+  service: 'gmail', 
+  auth: { 
+    user: process.env.correo, 
+    pass: process.env.clave_correo
+  } });
+
+
+
+//failclave quitar si causa problemas
+router.get('/index', function(req, res, next) {
+  res.render('index', { title: 'Login' });
+});
+
 
 router.get('/detallesprd', function(req, res, next) {
   res.render('detallesprd', { title: 'detallesprd' });
@@ -27,7 +44,7 @@ router.get('/detallesprd', function(req, res, next) {
 
 router.get('/loginclientes', function(req, res, next) {
   if (req.session.isAdmin) {
-    res.redirect('/home');
+    res.redirect('/');
   } else if (req.session.isUsuario) {
     res.redirect('/');
   } else {
@@ -47,9 +64,9 @@ router.post('/login2', function(req, res, next){
     concat2 = datos[0].id
     console.log(concat2);
     if (password == concat){
-      req.session.isAdmin = false;
-      req.session.idUsuario = concat2;
-      req.session.isUsuario = true;
+      req.session.email = email;
+      req.session.isAdmin = true;
+      req.session.username = concat2;
       res.redirect('/');
     }else{
       res.send('esto no funciona')
@@ -82,6 +99,21 @@ router.post('/register', function(req, res, next){
   productosModel
     .registroclientes(email, password1, preg_seg, resp_seg)
     .then(idClienteRegistrado=>{
+      const mailOptions = { 
+        from: process.env.email, 
+        to: email, 
+        subject: `Bienvenido a MomentSun`, 
+        text: `Un placer!!\n 
+        Tu registro se completo de manera exitosa!!\n\n
+        Nos complace que formes parte de nuestra plataforma, culaquier problema este es nuestro correo de contacto.\n 
+        MomentSun ©2024 M&C. All rights reserved` 
+      };
+
+      transporter.sendMail(mailOptions, function(error, info){ 
+        if (error) { console.log(error); 
+        } else { 
+          console.log('Correo electrónico de Bienvenida enviado: ' + info.response); 
+        }});
       res.redirect('/loginclientes');
     })
     .catch(err=>{
@@ -89,11 +121,6 @@ router.post('/register', function(req, res, next){
       return res.status(500).send('Error en el registro')
     })}
 });
-
-//Pagina error en contraseñas
-router.get('/resclave', function(req, res, next){
-  res.render('clavefail', {title: 'Contraseñas incorrectas'})
-})
 
 //Pagina recuperar contraseña
 router.get('/recuperar', function(req, res, next){
@@ -103,11 +130,28 @@ router.get('/recuperar', function(req, res, next){
 
 //Responder pregunta de Seguridad
 router.post('/resclave', function(req, res, next){
-  const {pregunta, respuesta} = req.body;
+  const {email, pregunta, respuesta} = req.body;
   productosModel
-    .recuperarclave(pregunta, respuesta)
+    .recuperarclave(email, pregunta, respuesta)
     .then(datos=>{
-      res.render('claverec', {datos: datos});
+      req.session.ResId = datos.id;
+      const mailOptions = { 
+        from: process.env.correo, 
+        to: datos.email, 
+        subject: `Restablecer Contraseña`, 
+        text: `Un gusto, le indicamos para reestablecer su contraseña.\n
+        Haz clic en el siguiente enlace para continuar: ${process.env.base_url}/rest-clave/${datos.id}\n\n
+        Si no ha sido usted el ha solicitado el reestablecimiento solo ignore el correo.\n\n 
+        MomentSun ©2024 M&C. All rights reserved` 
+      };
+
+      transporter.sendMail(mailOptions, function(error, info){ 
+        if (error) { console.log(error); 
+        } else { 
+          console.log('Correo electrónico de recuperacion de contraseña enviado: ' + info.response); 
+      }});
+      res.send('Dirijase al correo para recuperar su contraseña')
+   
     })
     .catch(err=>{
       console.error(err.message);
@@ -115,7 +159,47 @@ router.post('/resclave', function(req, res, next){
     })
 });
 
+//Pagina restablecer contraseña
+router.get('/rest-clave/:id', function(req, res, next){
+  const id= req.params.id;
+  if (req.session.isAdmin){
+    res.redirect('/Catalogo');
+  }else if (req.session.ResId == id){
+    productosModel
+    .obtenerIdcliente(id)
+    .then(datos=>{
+      req.session.ResId = null;
+      res.render('claverec', {datos: datos});
+     
+    })
+    .catch(err=>{
+      console.error(err.message);
+      return res.status(500).send('No se encuentra ese cliente');
+    })
+  } else{
+    res.redirect('/');
+  }
+});
 
+//Restablecer Contraseña
+router.post('/updateclave/:id', function(req, res, next){
+  const cliente_id= req.params.id;
+  console.log(cliente_id);
+  const {password1, password2} = req.body;
+  if (password1 != password2){
+    res.redirect('/passwordfail');
+  } else{
+    productosModel
+    .restablecerclave(password1, cliente_id)
+    .then(()=>{
+      res.send('Contraseña recuperada de manera exitosa');
+    })
+    .catch(err=>{
+      console.error(err.message);
+      return res.status(500).send('Error restableciendo contraseña')
+    })
+  }
+});
 
 
 
@@ -135,7 +219,7 @@ router.get('/detallesprd/:id', function(req, res, next){
 
 //Pagina formulario de compra 
 router.get('/pedidoprd/:id', function(req, res, next){
-  if(req.session.isUsuario){
+  if(req.session.isAdmin){
     const id = req.params.id;
     productosModel
       .obtenerPorId(id)
@@ -155,8 +239,9 @@ router.get('/pedidoprd/:id', function(req, res, next){
 router.post('/payments', async (req, res, next)=>{
   var monto, moneda;
   const {producto_id, descripcion, nombre, numero_tarjeta, cvv, mes_ven, year_ven, moneda_id, cantidad, referencia, precio} = req.body;
-  const ip_cliente = req.socket.remoteAddress;
-  const cliente_id = req.session.id;
+  const ip_cliente = req.ip || req.socket.remoteAddress;
+  const cliente_id = req.session.username;
+  const email = req.session.email;
   if (moneda_id == 1) {
     moneda= 'USD';
     monto = cantidad * precio;
@@ -194,13 +279,98 @@ router.post('/payments', async (req, res, next)=>{
       console.log(message);
       productosModel
       .facturas(cantidad, total_pagado, fecha, ip_cliente, transaccion_id, descripcion, referencia, moneda_id, cliente_id, producto_id)
-      .then(idFacturaRealizada =>{
-      res.render('pagosucces', {title: 'Compra Exitosa'})
+      .then(id =>{
+        const mailOptions = { 
+          from: process.env.correo, 
+          to: email, 
+          subject: `¡Compra realizada correctamente!`, 
+          text: `¡Hola, ${nombre}!\n\n ¡Gracias por realizar tu pedido en MomentSun! Aqui puedes encontrar los detalles de tu compra:\n\nN° Transacción: ${transaccion_id}\nProducto: ${descripcion}\nCantidad: ${cantidad}\nTotal Pagado: ${total_pagado}${moneda}\n\n¡Gracias por preferirnos!.\n\nMomentSun ©2024 M&C. All rights reserved` 
+        };
+
+          transporter.sendMail(mailOptions, function(error, info){ 
+            if (error) { console.log(error); 
+            } else { 
+              console.log('Correo electrónico de compra enviado: ' + info.response); 
+            }});
+        res.render('pagosucces', {title: 'Compra Exitosa'});
       })
   } catch (err) {
     res.render('pagofails');
   }
+});
+
+
+//Pagina de Productos comprados por Cliente para su calificacion
+router.get('/productos-comprados', function(req, res, next){
+  if (req.session.isAdmin) {
+    const cliente_id = req.session.username;
+    console.log(cliente_id);
+    productosModel
+    .obtenercomprasPorCliente(cliente_id)
+    .then(datos=>{
+      res.render('prdcomprados', {datos: datos});
+    })
+    .catch(err=>{
+      console.error(err.message);
+      return res.status(500).send('Error buscando archivos')
+    })
+  } else{
+    res.redirect('/loginclientes');
+  }
 })
+
+//Pagina para calificar un producto
+router.get('/calificar/:id', function(req, res, next){
+  if (req.session.isAdmin){
+    const id = req.params.id;
+    productosModel
+    .obtenerprdconimgPorId(id)
+    .then(producto=>{
+      res.render('calificaciones', {producto:producto})
+    })
+    .catch(err=>{
+      console.error(err.message);
+      return res.status(500).send('Error buscando productos')
+    })
+  }else{
+    res.redirect('/loginclientes');
+  }
+});
+
+//Califar producto
+router.post('/calificacion', function(req, res, next){
+  const {producto_id, puntos}= req.body;
+  const cliente_id = req.session.username;
+  productosModel
+  .calificarprd(puntos, cliente_id, producto_id)
+  .then(idProductoCalificado=>{
+    res.render('calificacionsuccess');
+  })
+  .catch(err=>{
+    console.error(err.message);
+    return res.status(500).send('Error calificando productos')
+  })
+});
+
+
+
+//Filtrado por promedio de calificacion
+router.post('/filtroprm', function(req, res, next){
+  const {promedio} = req.body;
+  productosModel
+  .filtradoprm(promedio)
+  .then(datos=>{
+    res.render('Catalogo', {datos: datos});
+  })
+  .catch(err=>{
+    console.error(err.message);
+    return res.status(500).send('Error buscando archivos')
+  })
+});
+
+//hasta aqui
+
+
 
 //Pagina principal compras
 router.get('/', function(req, res, next){

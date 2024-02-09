@@ -108,7 +108,11 @@ button:hover {
 
 
 	<form  action="/resclave" method="post" class="form">
+		<label for="email">Correo:</label>
+	<input type="email" name="email" id="email" placeholder="Ingrese su correo" required >
+	<label for="email">Pregunta de seguridad:</label>
     <input type="text" name="pregunta" id="pregunta" placeholder="Ingrese su pregunta de seguridad" required maxlength="16" minlength="4" >
+	<label for="email">Respuesta de seguridad:</label>
 	<input type="text" name="respuesta" id="respuesta" placeholder="Ingrese su respuesta de seguridad" required maxlength="8" minlength="4">
 		<button type="submit" class="btn btn-primary">Buscar Correo</button>
 	</form>
